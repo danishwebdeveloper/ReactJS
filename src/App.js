@@ -3,11 +3,19 @@ import logo from './logo.svg';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { Menu } from './Components/MenuComponent';
 import './App.css';
+import { DISHES } from './shared/dishes';
 import { MyFunctionalComponent } from './Components/MyFunctionalComponent';
 import { MyClassComponent } from './Components/MyClassComponent';
 
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            mydishes: DISHES
+        }
+    }
     render() {
         return ( <
             div >
@@ -16,13 +24,11 @@ class App extends Component {
             <
             div className = "container" >
             <
-            NavbarBrand href = "/" > Extra Blatt Resturant!! < /NavbarBrand>
-
-            <
+            NavbarBrand href = "/" > Extra Blatt Resturant!! < /NavbarBrand> <
             /div> <
-            /Navbar> <
-            Menu / >
-            <
+            /Navbar> { /* dishes as props here */ } <
+            Menu dishes = { this.state.mydishes }
+            /> <
             /div>
         );
     }
