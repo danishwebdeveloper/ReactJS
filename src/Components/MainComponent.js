@@ -43,6 +43,13 @@ export class Main extends Component {
             );
         };
 
+        const AboutUS = (props) => {
+            return ( <
+                About leaders = { this.state.leaders }
+                />
+            )
+        }
+
         return ( <
             div >
             <
@@ -65,8 +72,8 @@ export class Main extends Component {
                 component = { Contact }
                 /> <
                 Route path = "/aboutus"
-                component = { About }
-                />
+                component = { AboutUS }
+                /> 
 
                 <
                 Redirect to = "/home" / >

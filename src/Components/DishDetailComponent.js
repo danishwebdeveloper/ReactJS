@@ -22,7 +22,6 @@ function RenderComments({ comments }) {
             } <
             /ul> <
             /div>
-
         )
     } else {
         return ( <
