@@ -19,29 +19,29 @@ export class Main extends Component {
         this.state = {
             mydishes: DISHES,
             leaders: LEADERS,
-            comment: COMMENTS,
-            promotion: PROMOTIONS,
+            comments: COMMENTS,
+            promotion: PROMOTIONS
         }
     }
 
     render() {
 
         const HomePage = () => {
-                return (
-                    // pass props and also make as featured true then show otherwise don't display others from these components */
-                    <
-                    Home dish = { this.state.mydishes.filter((dish) => dish.featured)[0] }
-                    leader = { this.state.leaders.filter((leader) => leader.featured)[0] }
-                    promotion = { this.state.promotion.filter((proms) => proms.featured)[0] }
-                    comment = { this.state.comment.filter((comm) => comm.featured)[0] }
-                    />
-                )
-            }
-            // const AboutUs = () => {
-            //   return(
-            //     <About />
-            //   )
-            // }
+            return ( <
+                Home dish = { this.state.mydishes.filter((dish) => dish.featured)[0] }
+                promotion = { this.state.promotion.filter((promo) => promo.featured)[0] }
+                leader = { this.state.leaders.filter((leader) => leader.featured)[0] }
+                />
+            )
+        }
+
+        const DishWithId = ({ match }) => {
+            return ( <
+                DishDetail dish = { this.state.mydishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0] }
+                comments = { this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10)) }
+                />
+            );
+        };
 
         return ( <
             div >
@@ -56,7 +56,11 @@ export class Main extends Component {
             component = {
                 () => < Menu dishes = { this.state.mydishes }
                 />} / >
-                <
+
+                { /* New route after click and get dishId from Menu component where items came from dishdetail component */ } <
+                Route path = "/menu/:dishId"
+                component = { DishWithId }
+                /> <
                 Route exact path = "/contactus"
                 component = { Contact }
                 /> <
