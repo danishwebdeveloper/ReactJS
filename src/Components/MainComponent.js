@@ -35,6 +35,7 @@ export class Main extends Component {
             )
         }
 
+        // Match component becasue we match the relevant item and them display that relevant item.
         const DishWithId = ({ match }) => {
             return ( <
                 DishDetail dish = { this.state.mydishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0] }
@@ -43,6 +44,7 @@ export class Main extends Component {
             );
         };
 
+        // we can't do it where we make route because of return, if we do below return statement is null showing errro
         const AboutUS = (props) => {
             return ( <
                 About leaders = { this.state.leaders }
