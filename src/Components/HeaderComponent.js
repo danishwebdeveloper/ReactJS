@@ -1,5 +1,21 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron } from 'reactstrap';
+import {
+    Navbar,
+    NavbarBrand,
+    Nav,
+    NavbarToggler,
+    Collapse,
+    NavItem,
+    Jumbotron,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    Form,
+    FormGroup,
+    Label,
+    Input
+} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 export class Header extends Component {
@@ -7,9 +23,12 @@ export class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isNavOpen: false
+            isNavOpen: false,
+            isModelOpen: false
         }
         this.toogleNav = this.toogleNav.bind(this);
+        this.toggalModel = this.toggalModel.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     toogleNav() {
@@ -17,6 +36,19 @@ export class Header extends Component {
             isNavOpen: !this.state.isNavOpen //All time if false then true if true then fasle 
         })
     }
+
+    toggalModel() {
+        this.setState({
+            isModelOpen: !this.state.isModelOpen
+        })
+    }
+
+    handleLogin(event) {
+        this.toggalModel();
+        alert("username " + this.username.value + "Password " + this.password.value + "Remember" + this.remember.checked);
+        event.preventDefault();
+    }
+
     render() {
         return ( <
             div >
@@ -70,6 +102,17 @@ export class Header extends Component {
             <
             /NavItem> <
             /Nav> <
+            Nav className = "ml-auto"
+            navbar >
+            <
+            NavItem >
+            <
+            Button outline onClick = { this.toggalModel } >
+            <
+            span className = "fa fa-sign-in fa-lg" > < /span> Login <
+            /Button> <
+            /NavItem> <
+            /Nav> <
             /Collapse> <
             /div> <
             /Navbar> <
@@ -87,6 +130,54 @@ export class Header extends Component {
             /div> <
             /div> <
             /Jumbotron> <
+            Modal isOpen = { this.state.isModelOpen }
+            toggle = { this.toggalModel } >
+            <
+            ModalHeader toggle = { this.toggalModel } > Login < /ModalHeader> <
+            ModalBody >
+            <
+            Form onSubmit = { this.handleLogin } >
+            <
+            FormGroup >
+            <
+            Label htmlFor = "username" > Username < /Label> <
+            Input type = "text"
+            id = "username"
+            name = "username"
+            innerRef = {
+                (Input) => this.username = Input }
+            /> <
+            /FormGroup> <
+            FormGroup >
+            <
+            Label htmlFor = "password" > Password < /Label> <
+            Input type = "password"
+            id = "password"
+            name = "password"
+            innerRef = {
+                (Input) => this.password = Input }
+            /> <
+            /FormGroup> <
+            FormGroup check >
+            <
+            Label check >
+            <
+            Input type = "checkbox"
+            name = "remember"
+            innerRef = {
+                (Input) => this.remember = Input }
+            />
+            Remember Me <
+            /Label> <
+            /FormGroup> <
+            Button type = "submit"
+            value = "button"
+            color = "primary" >
+            Login <
+            /Button> <
+            /Form> <
+            /ModalBody> <
+            /Modal> <
             /div>
         );
     }
