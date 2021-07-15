@@ -144,6 +144,7 @@ export class Header extends Component {
             Input type = "text"
             id = "username"
             name = "username"
+            // InnerRef is used to give information to the HnadleLogin
             innerRef = {
                 (Input) => this.username = Input }
             /> <
