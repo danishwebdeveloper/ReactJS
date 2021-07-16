@@ -5,23 +5,12 @@ import { Contact } from './ContactComponent';
 import { Menu } from './MenuComponent';
 import { DishDetail } from './DishDetailComponent';
 import { Header } from './HeaderComponent';
-import { Footer } from './FooterComponent'
+import { Footer } from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-//Use to connect to the store and get the state or redux store and connect it to here and now connect below with this component
-const mapStateToProps = state => {
-    return {
-        mydishes: state.mydishes,
-        comments: state.comments,
-        leaders: state.leaders,
-        promotion: state.promotion
-    }
 
-}
-
-
-class Main extends Component {
+export class Main extends Component {
     constructor(props) {
         super(props);
 
@@ -78,14 +67,10 @@ class Main extends Component {
                 /> <
                 Route path = "/aboutus"
                 component = { AboutUS }
-                /> 
-
-                <
+                />  <
                 Redirect to = "/home" / >
                 <
-                /Switch>
-
-                <
+                /Switch>  <
                 Footer / >
                 <
                 /div>
@@ -93,4 +78,21 @@ class Main extends Component {
         }
     }
 
-    export default withRouter(connect(mapStateToProps)(Main));
+
+    // Make state to as a props here and then change all below this.state to this.props bcz of this change
+    //Use to connect to the store and get the state or redux store and connect it to here and now connect below with this component
+    // const mapStateToProps = state => {
+    //   return {
+    //   mydishes:state.mydishes,
+    //   comments:state.comments,
+    //   leaders:state.leaders,
+    //   promotion: state.promotion
+    //   }
+
+    // }
+
+    // export default connect(mapStateToProps)(withRouter(Main));
+    // export default Main;
+
+
+    // export default withRouter(connect(mapStateToProps)(Main));

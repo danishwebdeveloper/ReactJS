@@ -11,7 +11,6 @@ import { ConfigureStore } from './Redux/configureStore';
 // After this our store component is available for all the component becasue we use it in the Main Component(App)
 export const store = ConfigureStore();
 
-
 class App extends Component {
     render() {
 
@@ -20,8 +19,11 @@ class App extends Component {
             <
             BrowserRouter >
             <
+            div className = "App" >
+            <
             Main / >
             <
+            /div> <
             /BrowserRouter> <
             /Provider>
         );
