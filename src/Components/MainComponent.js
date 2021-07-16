@@ -5,24 +5,33 @@ import { Contact } from './ContactComponent';
 import { Menu } from './MenuComponent';
 import { DishDetail } from './DishDetailComponent';
 import { Header } from './HeaderComponent';
-import { Footer } from './FooterComponent';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Footer } from './FooterComponent'
+import { DISHES } from '../shared/dishes';
+import { COMMENTS } from '../shared/comments';
+import { LEADERS } from '../shared/leaders';
+import { PROMOTIONS } from '../shared/promotions';
+import { Switch, Route, Redirect, Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 
 export class Main extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            mydishes: DISHES,
+            leaders: LEADERS,
+            comments: COMMENTS,
+            promotion: PROMOTIONS
+        }
     }
 
     render() {
 
         const HomePage = () => {
             return ( <
-                Home dish = { this.props.mydishes.filter((dish) => dish.featured)[0] }
-                promotion = { this.props.promotion.filter((promo) => promo.featured)[0] }
-                leader = { this.props.leaders.filter((leader) => leader.featured)[0] }
+                Home dish = { this.state.mydishes.filter((dish) => dish.featured)[0] }
+                promotion = { this.state.promotion.filter((promo) => promo.featured)[0] }
+                leader = { this.state.leaders.filter((leader) => leader.featured)[0] }
                 />
             )
         }
@@ -30,8 +39,8 @@ export class Main extends Component {
         // Match component becasue we match the relevant item and them display that relevant item.
         const DishWithId = ({ match }) => {
             return ( <
-                DishDetail dish = { this.props.mydishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0] }
-                comments = { this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10)) }
+                DishDetail dish = { this.state.mydishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0] }
+                comments = { this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10)) }
                 />
             );
         };
@@ -39,7 +48,7 @@ export class Main extends Component {
         // we can't do it where we make route because of return, if we do below return statement is null showing errro
         const AboutUS = (props) => {
             return ( <
-                About leaders = { this.props.leaders }
+                About leaders = { this.state.leaders }
                 />
             )
         }
@@ -52,10 +61,10 @@ export class Main extends Component {
             <
             Route path = "/home"
             component = { HomePage }
-            /> <
+            />  <
             Route exact path = "/menu"
             component = {
-                () => < Menu dishes = { this.props.mydishes }
+                () => < Menu dishes = { this.state.mydishes }
                 />} / >
 
                 { /* New route after click and get dishId from Menu component where items came from dishdetail component */ } <
@@ -67,32 +76,17 @@ export class Main extends Component {
                 /> <
                 Route path = "/aboutus"
                 component = { AboutUS }
-                />  <
+                /> 
+
+                <
                 Redirect to = "/home" / >
                 <
-                /Switch>  <
+                /Switch>
+
+                <
                 Footer / >
                 <
                 /div>
             );
         }
     }
-
-
-    // Make state to as a props here and then change all below this.state to this.props bcz of this change
-    //Use to connect to the store and get the state or redux store and connect it to here and now connect below with this component
-    // const mapStateToProps = state => {
-    //   return {
-    //   mydishes:state.mydishes,
-    //   comments:state.comments,
-    //   leaders:state.leaders,
-    //   promotion: state.promotion
-    //   }
-
-    // }
-
-    // export default connect(mapStateToProps)(withRouter(Main));
-    // export default Main;
-
-
-    // export default withRouter(connect(mapStateToProps)(Main));

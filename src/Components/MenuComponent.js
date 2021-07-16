@@ -14,7 +14,7 @@ export const Menu = (props) => {
             className = "col-12 col-md-5 m-1" >
             <
             RenderMenuItem dish = { dish }
-            /> <
+            />  <
             /div>
         )
     })
@@ -28,15 +28,13 @@ export const Menu = (props) => {
             CardImg width = "100%"
             src = { dish.image }
             alt = { dish.name }
-            /> <
+            />  <
             CardImgOverlay >
             <
-            CardTitle > { dish.name } < /CardTitle> <
-            /CardImgOverlay> <
-            /Link> <
-            /Card>
+            CardTitle > { dish.name } < /CardTitle> </CardImgOverlay > < /Link> </Card >
         )
     }
+
 
 
     return ( <
@@ -46,20 +44,15 @@ export const Menu = (props) => {
         <
         Breadcrumb >
         <
-        BreadcrumbItem > < Link to = "/home" > Home < /Link> <
-        /BreadcrumbItem> <
-        BreadcrumbItem active > Menu <
-        /BreadcrumbItem> <
-        /Breadcrumb> <
+        BreadcrumbItem > < Link to = "/home" > Home < /Link> </BreadcrumbItem > < BreadcrumbItem active > Menu < /BreadcrumbItem> </Breadcrumb >
+        <
         div className = "col-12" >
         <
-        h3 > Menu < /h3> <
+        h3 > Menu < /h3>  <
         hr / >
         <
-        /div> <
-        /div> <
-        div className = "row" > { menu } <
-        /div> <
-        /div>
+        /div> </div >
+        <
+        div className = "row" > { menu } < /div> </div >
     );
 }
