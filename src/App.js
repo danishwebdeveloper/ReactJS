@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import { Main } from './Components/MainComponent';
-import { Menu } from './Components/MenuComponent';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Main from './Components/MainComponent';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore';
+
+const store = ConfigureStore();
 
 class App extends Component {
     render() {
-
-        return ( < BrowserRouter >
+        return ( <
+            Provider store = { store } >
+            <
+            BrowserRouter >
             <
             Main / >
             <
             /BrowserRouter>
-        );
 
+            <
+            /Provider>
+        );
     }
 }
 export default App;

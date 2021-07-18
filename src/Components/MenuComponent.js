@@ -53,6 +53,6 @@ export const Menu = (props) => {
         <
         /div> </div >
         <
-        div className = "row" > { menu } < /div> </div >
+        div className = "row" > { menu } < /div></div >
     );
 }

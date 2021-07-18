@@ -5,33 +5,31 @@ import { Contact } from './ContactComponent';
 import { Menu } from './MenuComponent';
 import { DishDetail } from './DishDetailComponent';
 import { Header } from './HeaderComponent';
-import { Footer } from './FooterComponent'
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { LEADERS } from '../shared/leaders';
-import { PROMOTIONS } from '../shared/promotions';
-import { Switch, Route, Redirect, Router } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Footer } from './FooterComponent';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 
-export class Main extends Component {
+const mapStateToProps = state => {
+    // console.log(state);
+    return {
+        mydishes: state.mydishes,
+        comments: state.comments,
+        promotions: state.promotions,
+        leaders: state.leaders
+    }
+}
+class Main extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            mydishes: DISHES,
-            leaders: LEADERS,
-            comments: COMMENTS,
-            promotion: PROMOTIONS
-        }
     }
 
     render() {
-
         const HomePage = () => {
             return ( <
-                Home dish = { this.state.mydishes.filter((dish) => dish.featured)[0] }
-                promotion = { this.state.promotion.filter((promo) => promo.featured)[0] }
-                leader = { this.state.leaders.filter((leader) => leader.featured)[0] }
+                Home dish = { this.props.mydishes.filter((dish) => dish.featured)[0] }
+                promotion = { this.props.promotion.filter((promo) => promo.featured)[0] }
+                leader = { this.props.leaders.filter((leader) => leader.featured)[0] }
                 />
             )
         }
@@ -39,19 +37,20 @@ export class Main extends Component {
         // Match component becasue we match the relevant item and them display that relevant item.
         const DishWithId = ({ match }) => {
             return ( <
-                DishDetail dish = { this.state.mydishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0] }
-                comments = { this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10)) }
+                DishDetail dish = { this.props.mydishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0] }
+                comments = { this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10)) }
                 />
             );
         };
 
         // we can't do it where we make route because of return, if we do below return statement is null showing errro
-        const AboutUS = (props) => {
+        const AboutUS = () => {
             return ( <
-                About leaders = { this.state.leaders }
+                About leaders = { this.props.leaders }
                 />
             )
         }
+
 
         return ( <
             div >
@@ -64,21 +63,21 @@ export class Main extends Component {
             />  <
             Route exact path = "/menu"
             component = {
-                () => < Menu dishes = { this.state.mydishes }
+                () => < Menu dishes = { this.props.mydishes }
                 />} / >
 
-                { /* New route after click and get dishId from Menu component where items came from dishdetail component */ } <
-                Route path = "/menu/:dishId"
-                component = { DishWithId }
-                /> <
-                Route exact path = "/contactus"
-                component = { Contact }
-                /> <
-                Route path = "/aboutus"
-                component = { AboutUS }
-                /> 
+                { /* New route after click and get dishId from Menu component where items came from dishdetail component */ }
 
                 <
+                Route path = "/menu/:dishId"
+                component = { DishWithId }
+                />  <
+                Route exact path = "/contactus"
+                component = { Contact }
+                />  <
+                Route path = "/aboutus"
+                component = { AboutUS }
+                />  <
                 Redirect to = "/home" / >
                 <
                 /Switch>
@@ -90,3 +89,6 @@ export class Main extends Component {
             );
         }
     }
+
+
+    export default withRouter(connect(mapStateToProps)(Main));
