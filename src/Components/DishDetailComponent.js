@@ -1,7 +1,145 @@
 // import React, { Component } from 'react';
-import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Fragment, Nav, NavItem, Button, ModalHeader, Modal, ModalBody, Form, FormGroup, Label, Input, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Control, Errors, LocalForm } from 'react-redux-form';
+
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => (val) && (val.length >= len);
+
+
+class Commentsubmit extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModelOpen: false
+        }
+        this.toggleModel = this.toggleModel.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    toggleModel() {
+        this.setState({
+            isModelOpen: !this.state.isModelOpen
+        })
+    }
+
+    handleLogin(values) {
+        this.toggleModel(); //Its Basically use to reset or Close the toogle model completely
+        console.log("Current State is: " + JSON.stringify(values));
+        alert("Current State is: " + JSON.stringify(values));
+
+    }
+
+    render() {
+        return ( <
+            React.Fragment >
+            <
+            Button outline onClick = { this.toggleModel } >
+            <
+            span className = "fa fa-file-text-o fa-md" > Submit Comment < /span> <
+            /Button> <
+            Modal isOpen = { this.state.isModelOpen }
+            toggle = { this.toggleModel } > { /* Toogle Header */ } <
+            ModalHeader toggle = { this.toggleModel } >
+            Submit COMMENT <
+            /ModalHeader> <
+            ModalBody >
+            <
+            LocalForm onSubmit = {
+                (values) => this.handleLogin(values) } >
+            <
+            Row className = "form-group" >
+            <
+            Label htmlFor = "rating"
+            md = { 2 } > Rating < /Label> <
+            Col md = { 10 } >
+            <
+            Control.select model = ".rating"
+            id = "rating"
+            name = "rating"
+            className = "form-control"
+
+            >
+            <
+            option > Please Select < /option> <
+            option > 1 < /option> <
+            option > 2 < /option> <
+            option > 3 < /option> <
+            option > 4 < /option> <
+            option > 5 < /option> <
+            /Control.select> <
+            /Col> <
+            /Row> <
+            Row className = "form-group" >
+            <
+            Label htmlFor = "uname"
+            md = { 2 } > Your Name < /Label> <
+            Col md = { 10 } >
+            <
+            Control.text model = ".uname"
+            id = "uname"
+            name = "uname"
+            placeholder = "Your Name"
+            className = "form-control"
+            validators = {
+                {
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15)
+                }
+            }
+            /> <
+            Errors className = "text-danger"
+            model = ".uname"
+            show = "touched"
+            messages = {
+                {
+                    required: 'Required',
+                    minLength: 'Must be Greater than 2 Character',
+                    maxLength: 'Must be less than or equal to 15 character'
+                }
+            }
+            /> <
+            /Col> <
+            /Row> <
+            Row className = "form-group" >
+            <
+            Label htmlFor = "comment"
+            md = { 2 } > Comment < /Label> <
+            Col md = { 10 } >
+            <
+            Control.textarea model = ".comment"
+            id = "comment"
+            name = "comment"
+            placeholder = "Comment"
+            className = "form-control" /
+            >
+            <
+            /Col> <
+            /Row> <
+            Row className = "form-group" >
+            <
+            Col md = { 10 } >
+            <
+            Button type = "submit"
+            value = "button"
+            color = "primary" >
+            Submit <
+            /Button> <
+            /Col> <
+            /Row> <
+            /LocalForm> <
+            /ModalBody> <
+            /Modal> <
+            /React.Fragment>
+        )
+    }
+}
+
 
 function RenderComments({ comments }) {
     if (comments != null) {
@@ -20,14 +158,18 @@ function RenderComments({ comments }) {
                     );
                 })
             } <
-            /ul> <
+            /ul> { /* Comment Submission Component Import From CommentFormComponent */ } <
+            div className = "row" >
+            <
+            Commentsubmit / >
+            <
+            /div> <
             /div>
         )
+
     } else {
         return ( <
-            div >
-
-            <
+            div > { /* <Commentsubmit /> */ } <
             /div>
         )
     }
